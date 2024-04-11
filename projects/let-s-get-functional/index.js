@@ -40,11 +40,11 @@ var femaleCount = function(array){
 
 var oldestCustomer = function (array){
     let oldest = _.reduce(array, function(acc, current){
-        if(current.age < acc.age){
+        if(acc < current.age){
             
-            return acc.name;
-        } else{
             return current.name;
+        } else{
+            return acc;
         }
         
     });
@@ -62,7 +62,12 @@ var youngestCustomer = function (array){
     return youngest;
 };
 
-var averageBalance;
+var averageBalance = (array) => {
+    let balance = 0;
+    let sum = _.filter(array, (customer) => balance += customer.balance /array.length );
+return sum;
+
+};
 
 var firstLetterCount;
 

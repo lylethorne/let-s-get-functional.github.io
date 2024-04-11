@@ -22,7 +22,8 @@ var _ = require('underbar');
  */
 
 var maleCount = (array) => {
-    let males = _.filter(array, (customer) => customer.geneder === 'male');
+    let males = _.filter(array, (customer) => customer.gender === 'male');
+    
     return males.length;
 }
 
@@ -34,16 +35,32 @@ var femaleCount = function(array){
         }
         return acc;
     }, 0);
-}
-;
+    return females;
+};
 
 var oldestCustomer = function (array){
     let oldest = _.reduce(array, function(acc, current){
+        if(current.age < acc.age){
+            
+            return acc.name;
+        } else{
+            return current.name;
+        }
         
     });
+    return oldest;
 };
 
-var youngestCustomer;
+var youngestCustomer = function (array){
+    let youngest = _.reduce(array, function(acc, current){
+        if(current.age > acc.age){
+            return acc.name
+        }else{
+            return current.name;
+        }
+    });
+    return youngest;
+};
 
 var averageBalance;
 

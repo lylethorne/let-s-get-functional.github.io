@@ -69,11 +69,36 @@ return sum;
 
 };
 
-var firstLetterCount;
+var firstLetterCount = (array, letter) => { 
+    let count = 0;
+    for(let i = 0; i < array.length; i++){
+        if(array[i].name.charAt(0).toUpperCase() === letter || array[i].name.charAt(0).toLowerCase() === letter){
+            count += count + 1;
+        }
+    }
+    return count;
+};
 
-var friendFirstLetterCount;
+var friendFirstLetterCount = (array, name, letter) => {
+    let count = 0;
+for(let i = 0; i < array.length; i++){
+    if(name[i].friend.name.charAt(0).toUpperCase() === letter || name[i].friend.name.charAt(0).toLowerCase() === letter){
+        count += count +1;
+    }
+}
+    return count;
+};
 
-var friendsCount;
+var friendsCount = (array, name) => {
+let newArray = [];
+for(let i = 0; i < array.length; i++){
+    if(array[i] === name){
+        let x = array[i].name.friends;
+        newArray.push(x);
+    }
+}
+return newArray;
+};
 
 var topThreeTags;
 

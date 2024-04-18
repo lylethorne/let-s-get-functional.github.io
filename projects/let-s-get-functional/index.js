@@ -39,9 +39,14 @@ var femaleCount = function(array){
 };
 
 var oldestCustomer = function (array, output=''){
-    let oldest = customers.filter((person) => person.age);
-    //let whatIf = oldest.map((age) => age > )
-
+    let oldest = customers.reduce(function(acc, current){
+        if(current.age > acc){
+            return current;
+        }else{
+            return acc;
+        }
+    }, '');
+    return oldest;
 };
 
 var youngestCustomer = function (array){
@@ -62,13 +67,7 @@ var averageBalance = (array, output=0) => {
 };
 
 var firstLetterCount = (array, letter) => { 
-    let count = 0;
-    for(let i = 0; i < array.length; i++){
-        if(array[i].name.charAt(0).toUpperCase() === letter || array[i].name.charAt(0).toLowerCase() === letter){
-            count += count + 1;
-        }
-    }
-    return count;
+   
 };
 
 var friendFirstLetterCount = (array, name, letter) => {
@@ -88,10 +87,15 @@ var topThreeTags = function(array){
 };
 
 var genderCount = function(array){
-    let males = _.filter(array, (customer) => customer.gender === 'male');
-    let females = _.filter(array, (customer) => customer.gender === 'female');
-    let nonbinary = _.filter(array, (customer) => customer.gender === 'non-binary');
-    return { men: males.length, women: females.length, thebest: nonbinary.length }
+   let genderNum = customers.reduce(function(acc, current){
+    if(acc[current.gender]){
+        acc[current.gender] += 1;
+    }else{
+        acc[current.gender] = 1;
+    }
+    return acc;
+   }, {});
+   return genderNum;
 };
 
 //////////////////////////////////////////////////////////////////////

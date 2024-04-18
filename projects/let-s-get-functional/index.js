@@ -38,17 +38,10 @@ var femaleCount = function(array){
     return females;
 };
 
-var oldestCustomer = function (array){
-    let oldest = _.reduce(array, function(acc, current){
-        if(acc < current.age){
-            
-            return current.name;
-        } else{
-            return acc;
-        }
-        
-    });
-    return oldest;
+var oldestCustomer = function (array, output=''){
+    let oldest = customers.filter((person) => person.age);
+    //let whatIf = oldest.map((age) => age > )
+
 };
 
 var youngestCustomer = function (array){
@@ -62,11 +55,10 @@ var youngestCustomer = function (array){
     return youngest;
 };
 
-var averageBalance = (array) => {
-    let balance = 0;
-    let sum = _.filter(array, (customer) => balance += customer.balance /array.length );
-return sum;
-
+var averageBalance = (array, output=0) => {
+    let sum = array.filter(function(customer){
+        output += customer.balance / array.length });
+    return output;
 };
 
 var firstLetterCount = (array, letter) => { 
@@ -80,29 +72,27 @@ var firstLetterCount = (array, letter) => {
 };
 
 var friendFirstLetterCount = (array, name, letter) => {
-    let count = 0;
-for(let i = 0; i < array.length; i++){
-    if(name[i].friend.name.charAt(0).toUpperCase() === letter || name[i].friend.name.charAt(0).toLowerCase() === letter){
-        count += count +1;
-    }
-}
-    return count;
+    let friendsIn = array.filter((person) => person.name.friend.name.charAt(0).toUpperCase() === letter || 
+    person.name.friend.name.charAt(0).toLowerCase() === letter);
+    
+    return friendsIn.length;
 };
 
 var friendsCount = (array, name) => {
-let newArray = [];
-for(let i = 0; i < array.length; i++){
-    if(array[i] === name){
-        let x = array[i].name.friends;
-        newArray.push(x);
-    }
-}
-return newArray;
+  const frand = array._.filter(name => array.name.friend);
+  return frand;
 };
 
-var topThreeTags;
+var topThreeTags = function(array){
 
-var genderCount;
+};
+
+var genderCount = function(array){
+    let males = _.filter(array, (customer) => customer.gender === 'male');
+    let females = _.filter(array, (customer) => customer.gender === 'female');
+    let nonbinary = _.filter(array, (customer) => customer.gender === 'non-binary');
+    return { men: males.length, women: females.length, thebest: nonbinary.length }
+};
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////

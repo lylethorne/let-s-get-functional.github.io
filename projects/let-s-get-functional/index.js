@@ -39,10 +39,7 @@ var femaleCount = function(array){
 };
 
 var oldestCustomer = function (array){
-    const oldest = _.sort((a, b) =>
-    customers.age(a) > customers.age(b) ? -1 : 1
-  );
-  return oldest[0];
+    const oldest = customers.filter((customer) => customer.age > 40 ).map((customer) => customer.name);
     // let oldest = _.reduce(function(acc, current){
     //     if(current.age > acc.age){
     //         return current.name;
@@ -50,7 +47,8 @@ var oldestCustomer = function (array){
     //         return acc.name;
     //     }
     // }, '');
-    // return oldest;
+    let moreOld = oldest.split('');
+    return moreOld;
 };
 
 var youngestCustomer = function (array){
@@ -72,7 +70,7 @@ var averageBalance = (array, output=0) => {
 
 var firstLetterCount = (array, letter, output=0) => { 
     let sum = array.filter(function(customer){
-        if(friends.name.charAt(0) === letter){
+        if(customer.name.charAt(0).toUpperCase() === letter || customer.name.charAt(0).toLowerCase() === letter ){
             output += 1;
         }
         return output;
@@ -80,33 +78,40 @@ var firstLetterCount = (array, letter, output=0) => {
     return output;   
 };
 
-var friendFirstLetterCount = (array, name, letter) => {
-    let friendsIn = array.filter((person) => person.name.friend.name.charAt(0).toUpperCase() === letter || 
-    person.name.friend.name.charAt(0).toLowerCase() === letter);
-    
-    return friendsIn.length;
+var friendFirstLetterCount = (array, name, letter, output=0) => {
+    let friendsIn = array.filter((person) => 
+    {if(person.friend.name.charAt(0).toUpperCase() === letter || person.friend.name.charAt(0).toLowerCase() === letter){
+        output += 1;
+    }
+    return output;
+    });
+    return output;
 };
 
-var friendsCount = (array, name) => {
-  const frand = array.filter(name => array.name.friend);
-  return frand;
+var friendsCount = (array, name, output=[]) => {
+  const frand = array.filter((customer) => {
+  if(customer.name.friends.includes(name)){
+    output.push(customer.name)
+  }
+  });
+  return output;
 };
 
 var topThreeTags = function(array){
     let result = customers.reduce(function(acc, current){
-        let toptag = customers.tags;
-        for(let i = 0; i < toptag.length; i++){
-            if(acc[toptag[i]]){
-                acc[toptag[i]] += 1;
-            }else{
-                acc[toptag[i]] = 1;
-            }
+        let toptags = customers.tags;
+        if(acc[toptags]){
+            acc[toptags] += 1;
+        }else{
+            acc[toptags] = 1;
         }
-            return acc;
+        return acc;
     }, {});
     result.reduce(function(acc, current){
-        if(current[tag] > acc[tag]){
-            acc.push(current);
+        for(let i = 0; i < toptag.length; i++){
+            if(current[tag[i]] > acc[tag[i]]){
+                acc.push(current);
+            }
         }
         return acc;
     },[]);

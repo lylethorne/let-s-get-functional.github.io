@@ -38,15 +38,19 @@ var femaleCount = function(array){
     return females;
 };
 
-var oldestCustomer = function (array, output=''){
-    let oldest = customers.reduce(function(acc, current){
-        if(current.age > acc){
-            return current;
-        }else{
-            return acc;
-        }
-    }, '');
-    return oldest;
+var oldestCustomer = function (array){
+    const oldest = _.sort((a, b) =>
+    customers.age(a) > customers.age(b) ? -1 : 1
+  );
+  return oldest[0];
+    // let oldest = _.reduce(function(acc, current){
+    //     if(current.age > acc.age){
+    //         return current.name;
+    //     }else{
+    //         return acc.name;
+    //     }
+    // }, '');
+    // return oldest;
 };
 
 var youngestCustomer = function (array){
@@ -56,7 +60,7 @@ var youngestCustomer = function (array){
         }else{
             return current.name;
         }
-    });
+    }, '');
     return youngest;
 };
 
@@ -66,8 +70,14 @@ var averageBalance = (array, output=0) => {
     return output;
 };
 
-var firstLetterCount = (array, letter) => { 
-   
+var firstLetterCount = (array, letter, output=0) => { 
+    let sum = array.filter(function(customer){
+        if(friends.name.charAt(0) === letter){
+            output += 1;
+        }
+        return output;
+    });  
+    return output;   
 };
 
 var friendFirstLetterCount = (array, name, letter) => {
@@ -78,12 +88,29 @@ var friendFirstLetterCount = (array, name, letter) => {
 };
 
 var friendsCount = (array, name) => {
-  const frand = array._.filter(name => array.name.friend);
+  const frand = array.filter(name => array.name.friend);
   return frand;
 };
 
 var topThreeTags = function(array){
-
+    let result = customers.reduce(function(acc, current){
+        let toptag = customers.tags;
+        for(let i = 0; i < toptag.length; i++){
+            if(acc[toptag[i]]){
+                acc[toptag[i]] += 1;
+            }else{
+                acc[toptag[i]] = 1;
+            }
+        }
+            return acc;
+    }, {});
+    result.reduce(function(acc, current){
+        if(current[tag] > acc[tag]){
+            acc.push(current);
+        }
+        return acc;
+    },[]);
+ return result;
 };
 
 var genderCount = function(array){

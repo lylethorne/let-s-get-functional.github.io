@@ -39,33 +39,21 @@ var femaleCount = function(array){
 };
 
 var oldestCustomer = function (array){
-    const oldest = customers.filter((customer) => customer.age > 40 ).map((customer) => customer.name);
-    // let oldest = _.reduce(function(acc, current){
-    //     if(current.age > acc.age){
-    //         return current.name;
-    //     }else{
-    //         return acc.name;
-    //     }
-    // }, '');
-    let moreOld = oldest.split('');
+    const oldest = array.filter((customer) => customer.age >= 40 ).map((customer) => customer.name);
+    let moreOld = oldest.join('');
     return moreOld;
 };
 
 var youngestCustomer = function (array){
-    let youngest = _.reduce(array, function(acc, current){
-        if(current.age > acc.age){
-            return acc.name
-        }else{
-            return current.name;
-        }
-    }, '');
-    return youngest;
+    let youngest = array.filter((customer) => customer.age <= 22).map((customer) => customer.name);
+    let youngestEst = youngest.join('');
+    return youngestEst;
 };
 
 var averageBalance = (array, output=0) => {
-    let sum = array.filter(function(customer){
-        output += customer.balance / array.length });
-    return output;
+    let sum = array.filter((customer) =>
+        output += customer.balance);
+    return output / sum.length - 1;
 };
 
 var firstLetterCount = (array, letter, output=0) => { 

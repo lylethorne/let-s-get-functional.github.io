@@ -50,10 +50,11 @@ var youngestCustomer = function (array){
     return youngestEst;
 };
 
-var averageBalance = (array, output=0) => {
-    let sum = array.filter((customer) =>
-        output += customer.balance);
-    return output / sum.length - 1;
+var averageBalance = (array) => {
+    let balanceCust = array.reduce(function(acc, current){
+        return acc + Number(current.balance.replace(/\$|,/g, ""));
+      }, 0);
+       return balanceCust / array.length;
 };
 
 var firstLetterCount = (array, letter, output=0) => { 
@@ -67,43 +68,52 @@ var firstLetterCount = (array, letter, output=0) => {
 };
 
 var friendFirstLetterCount = (array, name, letter, output=0) => {
-    let friendsIn = array.filter((person) => 
-    {if(person.friend.name.charAt(0).toUpperCase() === letter || person.friend.name.charAt(0).toLowerCase() === letter){
-        output += 1;
+    let friendsIn = array.filter(function(friend){
+    for(let i = 0; i < friend.friends.length; i++){
+        if(friend.friends.name.charAt(0).toUpperCase() === letter || friend.friends.name.charAt(0).toLowerCase() === letter){
+            output += 1;
     }
     return output;
+        }
     });
     return output;
 };
 
 var friendsCount = (array, name, output=[]) => {
   const frand = array.filter((customer) => {
-  if(customer.name.friends.includes(name)){
+  if(customer.friends.includes(name)){
     output.push(customer.name)
   }
+  
   });
   return output;
 };
 
-var topThreeTags = function(array){
-    let result = customers.reduce(function(acc, current){
-        let toptags = customers.tags;
-        if(acc[toptags]){
-            acc[toptags] += 1;
-        }else{
-            acc[toptags] = 1;
+var topThreeTags = function(array, output=[]){
+    let result = array.reduce(function(accumulator, current ){
+          if (current[tags] === undefined){
+            current[tags] = 1;
+          } else {
+            [tags] += 1;
+          }
+        return accumulator;
+      }, []);
+     
+    // let sum = {};
+    // array.forEach(function(customer){
+    //     customer.tags.forEach((tag) =>
+    //         sum[tag] = (sum[tag] || 0) + 1
+    //     );
+
+    // });
+    let sorted = result.map(s => [ s , result[s] ] ).sort( (a,b) => a[1] - b[1] );
+    for(let i = 0; i < sorted.length; i++){
+        if(sorted[i] >= 3){
+            output.push(sorted[i]);
         }
-        return acc;
-    }, {});
-    result.reduce(function(acc, current){
-        for(let i = 0; i < toptag.length; i++){
-            if(current[tag[i]] > acc[tag[i]]){
-                acc.push(current);
-            }
-        }
-        return acc;
-    },[]);
- return result;
+        return output;
+    }
+   
 };
 
 var genderCount = function(array){

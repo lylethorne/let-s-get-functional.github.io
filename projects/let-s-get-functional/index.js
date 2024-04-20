@@ -67,25 +67,18 @@ var firstLetterCount = (array, letter, output=0) => {
     return output;   
 };
 
-var friendFirstLetterCount = (array, name, letter, output=0) => {
-    let friendsIn = array.filter(function(friend){
-    for(let i = 0; i < friend.friends.length; i++){
-        if(friend.friends.name.charAt(0).toUpperCase() === letter || friend.friends.name.charAt(0).toLowerCase() === letter){
-            output += 1;
-    }
-    return output;
-        }
-    });
-    return output;
+var friendFirstLetterCount = (array, name, letter) => {
+    const customer = array.filter(customer => customer.name === name)[0];
+    return customer.friends.filter(friend => friend.name.toUpperCase().startsWith(letter)|| friend.name.toLowerCase().startsWith(letter)).length;
 };
 
 var friendsCount = (array, name, output=[]) => {
-  const frand = array.filter((customer) => {
+  const frand = array.filter((customer) => customer.name === name);
   if(customer.friends.includes(name)){
     output.push(customer.name)
   }
   
-  });
+  
   return output;
 };
 

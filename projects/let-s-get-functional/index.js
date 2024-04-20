@@ -90,31 +90,25 @@ var friendsCount = (array, name, output=[]) => {
 };
 
 var topThreeTags = function(array, output=[]){
-    let result = array.reduce(function(accumulator, current ){
-          if (current[tags] === undefined){
-            current[tags] = 1;
-          } else {
-            [tags] += 1;
-          }
-        return accumulator;
-      }, []);
-     
-    // let sum = {};
-    // array.forEach(function(customer){
-    //     customer.tags.forEach((tag) =>
-    //         sum[tag] = (sum[tag] || 0) + 1
-    //     );
-
-    // });
-    let sorted = result.map(s => [ s , result[s] ] ).sort( (a,b) => a[1] - b[1] );
-    for(let i = 0; i < sorted.length; i++){
-        if(sorted[i] >= 3){
-            output.push(sorted[i]);
-        }
-        return output;
-    }
+        let sum = {};
+         array.forEach(function(customer){
+             customer.tags.forEach(function(tag){
+                if(!sum[tag]){
+               sum[tag] = 1;
+             }else{
+               sum[tag] += 1;
+             }
+             });
+         });
+       for(var key in sum){
+         if(sum[key] >= 3){
+           output.push([key]);
+         }
+       }
+       return output;
+     }
    
-};
+
 
 var genderCount = function(array){
    let genderNum = customers.reduce(function(acc, current){

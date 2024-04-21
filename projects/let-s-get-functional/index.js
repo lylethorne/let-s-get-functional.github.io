@@ -74,7 +74,7 @@ var friendFirstLetterCount = (array, name, letter) => {
 
 var friendsCount = (array, name, output=[]) => {
   const frand = array.filter((customer) => customer.name === name);
-  if(customer.friends.includes(name)){
+  if(customer.friends.some(e => e.name === name))){
     output.push(customer.name)
   }
   
